@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Novara-developer/novara-evidence-bundle-minimal/spec/aal-entry.schema.json",
+  "title": "Novara Evidence Bundle AAL entry v0.1",
+  "type": "object",
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Action time (ISO 8601, UTC, Z-suffixed)."
+    },
+    "actor": {
+      "type": "string",
+      "description": "Who performed the action (e.g. 'user', 'route-planner', 'assistant')."
+    },
+    "action": {
+      "type": "string",
+      "description": "Short verb or event name (e.g. 'send_message', 'plan_route')."
+    },
+    "input": {
+      "type": "object",
+      "description": "Input data or parameters for the action.",
+      "additionalProperties": true
+    },
+    "output": {
+      "type": "object",
+      "description": "Output data or result of the action.",
+      "additionalProperties": true
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Auxiliary data (e.g. model id, temperature, map version).",
+      "additionalProperties": true
+    }
+  },
+  "required": ["timestamp", "actor", "action"],
+  "additionalProperties": true
+}
