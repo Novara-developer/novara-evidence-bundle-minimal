@@ -1,48 +1,43 @@
-# Novara Evidence Bundle v0.1 – Minimal Spec
+Novara Evidence Bundle v0.1 – Minimal Spec
 
-**Status:** Draft  
-**Version:** 0.1.0  
-**Date:** 2025-11-20  
-**License:** CC BY 4.0
+Status: Draft
+Version: 0.1.0
+Date: 2025-11-20
+License: CC BY 4.0
 
----
+⸻
 
-## 1. Overview
+1. Overview
 
-A **Novara Evidence Bundle** is a portable package that explains:
+A Novara Evidence Bundle is a portable package that explains:
+	•	what an AI system did
+	•	when it did it
+	•	under which configuration / context
 
-- what an AI system did  
-- when it did it  
-- under which configuration / context  
-
-in a way that **third parties can verify later**.
+in a way that third parties can verify later.
 
 In v0.1, a bundle is a single ZIP file containing:
+	•	meta.json – high-level metadata about the bundle
+	•	aal.ndjson – AI Action Log (timeline of events)
+	•	attachments/ – optional supporting files
+	•	anchors/ – optional anchoring / proof files
 
-- `meta.json` – high-level metadata about the bundle  
-- `aal.ndjson` – AI Action Log (timeline of events)  
-- `attachments/` – optional supporting files  
-- `anchors/` – optional anchoring / proof files
-
-This spec defines the **minimal** requirements for a valid v0.1 bundle.
+This spec defines the minimal requirements for a valid v0.1 bundle.
 
 It is implementation-neutral and is intended to work with:
+	•	Novara Core (constitutional layer)
+	•	Novara Incident Protocol v0.1
+	•	Novara Proof Rail v0.1
 
-- Novara Core (constitutional layer)  
-- Novara Incident Protocol v0.1  
-- Novara Proof Rail v0.1
+⸻
 
----
-
-## 2. Container format
+2. Container format
 
 A Novara Evidence Bundle v0.1 MUST:
+	1.	Be a valid ZIP file
+	2.	Use UTF-8 for all text files
+	3.	Contain at least the following paths at the top level:
 
-1. Be a valid ZIP file  
-2. Use UTF-8 for all text files  
-3. Contain at least the following paths at the top level:
-
-```text
 meta.json
 aal.ndjson
 
@@ -118,8 +113,7 @@ Minimal required fields for each entry:
 	•	actor
 	•	Which component took the action (e.g. "route-planner", "llm", "navigation-ui").
 	•	action
-	•	Short verb or event name
-(e.g. "generate", "calculate_route", "display_route").
+	•	Short verb or event name (e.g. "generate", "calculate_route", "display_route").
 
 Recommended additional fields:
 
@@ -129,15 +123,12 @@ Recommended additional fields:
   "metadata": {}
 }
 
-	•	input
-	•	JSON structure describing key inputs (prompt, parameters, request data, etc.).
-	•	output
-	•	JSON structure describing key outputs (response, route, score, etc.).
-	•	metadata
-	•	Free-form additional info (model id, temperature, map version, etc.).
+	•	input – JSON structure describing key inputs (prompt, parameters, request data, etc.).
+	•	output – JSON structure describing key outputs (response, route, score, etc.).
+	•	metadata – Free-form additional info (model id, temperature, map version, etc.).
 
 Implementations MAY log more fields (e.g. hashes, signatures, decision ids),
-as long as each line remains valid JSON.
+as long as each line remains a valid JSON object.
 
 ⸻
 
@@ -176,7 +167,7 @@ A bundle is considered valid for basic audit if:
 	1.	The file is a valid ZIP archive
 	2.	meta.json exists and is valid JSON with required fields
 	3.	aal.ndjson exists and:
-	•	is text,
+	•	is text, and
 	•	each non-empty line is valid JSON with required fields
 	4.	All timestamps in aal.ndjson are parsable ISO 8601 strings
 	5.	Optional directories, if present, do not break ZIP structure
