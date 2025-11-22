@@ -1,0 +1,11 @@
+{
+  "type": "novara-ctk2-mini-anchor-v0.1",
+  "bundle_hash_type": "sha3-256",
+  "bundle_hash": "demo-placeholder-hash",
+  "created_at": "2025-11-23T12:34:56Z",
+  "log_chain_info": {
+    "log_type": null,
+    "log_entry_id": null
+  },
+  "verification_url": null
+}
