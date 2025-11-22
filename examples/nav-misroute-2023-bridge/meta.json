@@ -1,0 +1,18 @@
+{
+  "bundle_id": "nav-misroute-2023-bridge-demo",
+  "version": "0.1",
+  "timestamp": "2023-09-24T14:30:00Z",
+  "system_info": {
+    "name": "Navigation AI (Hypothetical)",
+    "version": "demo-0.1",
+    "operator": "Unknown Mapping Service (demo)"
+  },
+  "incident_summary": "Navigation system directed users onto a collapsed bridge, resulting in fatalities. This bundle is a hypothetical reconstruction for demonstration purposes.",
+  "tags": [
+    "demo",
+    "navigation",
+    "safety-critical",
+    "misroute"
+  ],
+  "disclaimer": "This is a hypothetical reconstruction based on public reports. It is NOT official incident data."
+}
