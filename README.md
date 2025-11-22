@@ -31,7 +31,9 @@ Locally, the repo is expected to look like this:
 novara-evidence-bundle-minimal/
 ├─ README.md
 ├─ spec/
-│  └─ novara-evidence-bundle-v0.1-spec.md   # text spec
+│  ├─ novara-evidence-bundle-v0.1-spec.md   # text spec
+│  ├─ meta.schema.json                      # JSON Schema for meta.json
+│  └─ aal-entry.schema.json                 # JSON Schema for AAL entries
 ├─ scripts/
 │  └─ generate_demo_bundle.py               # demo bundle generator
 ├─ verifier/
@@ -82,16 +84,18 @@ hinata-2025-11-19.zip
 └─ anchors/           # optional: blockchain / TEE anchors
 
 	•	meta.json
-	•	Basic info such as bundle_id, timestamp, system_info, etc.
+Basic info such as bundle_id, timestamp, system_info, etc.
 	•	aal.ndjson
-	•	Chronological AI action log (one JSON object per line).
+Chronological AI action log (one JSON object per line).
 	•	attachments/
-	•	Input prompts, configuration files, screenshots, and other context.
+Input prompts, configuration files, screenshots, and other context.
 	•	anchors/
-	•	Reserved for future CTK-2 / blockchain / TEE anchoring data.
+Reserved for future CTK-2 / blockchain / TEE anchoring data.
 
-The full specification will live at:
-	•	spec/novara-evidence-bundle-v0.1-spec.md (to be committed)
+The full specification lives at:
+	•	spec/novara-evidence-bundle-v0.1-spec.md
+	•	spec/meta.schema.json
+	•	spec/aal-entry.schema.json
 
 ⸻
 
@@ -140,9 +144,9 @@ with just a few lines of Python.
 
 Relationship to other Novara repos
 	•	Constitution / protocols (text-only)
-→ novara-core
+→ novara-core￼
 	•	Main app / implementation
-→ Novara
+→ Novara￼
 	•	This repo
 → Minimal implementation (MVP) of the Evidence Bundle format.
 
