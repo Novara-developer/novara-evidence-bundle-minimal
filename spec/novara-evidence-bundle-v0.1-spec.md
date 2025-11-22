@@ -1,43 +1,48 @@
-Novara Evidence Bundle v0.1 – Minimal Spec
+# Novara Evidence Bundle v0.1 – Minimal Spec
 
-Status: Draft
-Version: 0.1.0
-Date: 2025-11-20
-License: CC BY 4.0
+**Status:** Draft  
+**Version:** 0.1.0  
+**Date:** 2025-11-20  
+**License:** CC BY 4.0
 
 ⸻
 
-1. Overview
+## 1. Overview
 
-A Novara Evidence Bundle is a portable package that explains:
-	•	what an AI system did
-	•	when it did it
-	•	under which configuration / context
+A **Novara Evidence Bundle** is a portable package that explains:
 
-in a way that third parties can verify later.
+- what an AI system did  
+- when it did it  
+- under which configuration / context  
+
+in a way that **third parties can verify later**.
 
 In v0.1, a bundle is a single ZIP file containing:
-	•	meta.json – high-level metadata about the bundle
-	•	aal.ndjson – AI Action Log (timeline of events)
-	•	attachments/ – optional supporting files
-	•	anchors/ – optional anchoring / proof files
 
-This spec defines the minimal requirements for a valid v0.1 bundle.
+- `meta.json` – high-level metadata about the bundle  
+- `aal.ndjson` – AI Action Log (timeline of events)  
+- `attachments/` – optional supporting files  
+- `anchors/` – optional anchoring / proof files  
+
+This spec defines the **minimal** requirements for a valid v0.1 bundle.
 
 It is implementation-neutral and is intended to work with:
-	•	Novara Core (constitutional layer)
-	•	Novara Incident Protocol v0.1
-	•	Novara Proof Rail v0.1
+
+- Novara Core (constitutional layer)  
+- Novara Incident Protocol v0.1  
+- Novara Proof Rail v0.1  
 
 ⸻
 
-2. Container format
+## 2. Container format
 
-A Novara Evidence Bundle v0.1 MUST:
-	1.	Be a valid ZIP file
-	2.	Use UTF-8 for all text files
-	3.	Contain at least the following paths at the top level:
+A Novara Evidence Bundle v0.1 **MUST**:
 
+1. Be a valid ZIP file  
+2. Use UTF-8 for all text files  
+3. Contain at least the following paths at the top level:
+
+```text
 meta.json
 aal.ndjson
 
@@ -111,9 +116,11 @@ Minimal required fields for each entry:
 	•	timestamp
 	•	ISO 8601 UTC timestamp for the event.
 	•	actor
-	•	Which component took the action (e.g. "route-planner", "llm", "navigation-ui").
+	•	Which component took the action
+(e.g. "route-planner", "llm", "navigation-ui").
 	•	action
-	•	Short verb or event name (e.g. "generate", "calculate_route", "display_route").
+	•	Short verb or event name
+(e.g. "generate", "calculate_route", "display_route").
 
 Recommended additional fields:
 
@@ -123,11 +130,15 @@ Recommended additional fields:
   "metadata": {}
 }
 
-	•	input – JSON structure describing key inputs (prompt, parameters, request data, etc.).
-	•	output – JSON structure describing key outputs (response, route, score, etc.).
-	•	metadata – Free-form additional info (model id, temperature, map version, etc.).
+	•	input – JSON structure describing key inputs
+(prompt, parameters, request data, etc.).
+	•	output – JSON structure describing key outputs
+(response, route, score, etc.).
+	•	metadata – free-form additional info
+(model id, temperature, map version, etc.).
 
-Implementations MAY log more fields (e.g. hashes, signatures, decision ids),
+Implementations MAY log more fields
+(e.g. hashes, signatures, decision ids),
 as long as each line remains a valid JSON object.
 
 ⸻
@@ -147,6 +158,8 @@ Examples of files that MAY live here:
 No specific structure is required in v0.1.
 Implementations SHOULD choose descriptive filenames and formats.
 
+⸻
+
 4.2 anchors/
 
 anchors/ is an optional directory for cryptographic proofs and anchoring data.
@@ -158,6 +171,37 @@ Examples (non-exhaustive):
 
 For v0.1, no particular anchor type is required.
 Verifiers MAY ignore unknown files under anchors/.
+
+⸻
+
+4.2.1 ctk2-mini.json (optional)
+
+ctk2-mini.json is a minimal anchor object that records:
+	•	which hash algorithm was used
+	•	the hash of the whole bundle
+	•	when the anchor was created
+	•	(optionally) where this hash has been recorded externally
+
+Minimal example:
+
+{
+  "type": "novara-ctk2-mini-anchor-v0.1",
+  "bundle_hash_type": "sha3-256",
+  "bundle_hash": "SHA3-256-hex-of-the-zip-file-goes-here",
+  "created_at": "2025-11-23T12:34:56Z",
+  "log_chain_info": {
+    "log_type": "optional-append-only-log-id",
+    "log_entry_id": "optional-external-log-entry-pointer"
+  },
+  "verification_url": "https://example.com/optional-public-log-lookup"
+}
+
+For v0.1:
+	•	ctk2-mini.json is OPTIONAL.
+	•	If present, verifiers SHOULD check that the object is valid JSON
+with the above fields.
+	•	Verifiers MAY additionally recompute the bundle hash and
+compare it to bundle_hash.
 
 ⸻
 
@@ -244,8 +288,8 @@ Minimal aal.ndjson (2 events):
 {"timestamp": "2025-11-19T12:30:00Z", "actor": "route-planner", "action": "calculate_route"}
 {"timestamp": "2025-11-19T12:31:00Z", "actor": "navigation-ui", "action": "display_route"}
 
-
 ⸻
 
 9. Revision history
-	•	v0.1.0 – initial minimal spec
+	•	v0.1.0 – initial minimal spec (+ optional ctk2-mini anchor)
+
