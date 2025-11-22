@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Novara-developer/novara-evidence-bundle-minimal/spec/meta.schema.json",
+  "title": "Novara Evidence Bundle meta.json v0.1",
+  "type": "object",
+  "properties": {
+    "bundle_id": {
+      "type": "string",
+      "description": "Globally unique identifier for this bundle (UUID, ULID, etc.)."
+    },
+    "version": {
+      "type": "string",
+      "const": "0.1",
+      "description": "Evidence Bundle specification version."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Creation time of the bundle in ISO 8601 (UTC, Z-suffixed)."
+    },
+    "system_info": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Human-readable system name."
+        },
+        "version": {
+          "type": "string",
+          "description": "System version or model identifier."
+        },
+        "operator": {
+          "type": "string",
+          "description": "Organisation or person operating the system."
+        }
+      },
+      "required": ["name", "version", "operator"],
+      "additionalProperties": true
+    },
+    "incident_summary": {
+      "type": "string",
+      "description": "Optional short summary of the incident or scenario."
+    },
+    "tags": {
+      "type": "array",
+      "description": "Optional tags (e.g. 'demo', 'navigation').",
+      "items": {
+        "type": "string"
+      }
+    },
+    "disclaimer": {
+      "type": "string",
+      "description": "Optional disclaimer text (e.g. 'demo only')."
+    }
+  },
+  "required": ["bundle_id", "version", "timestamp", "system_info"],
+  "additionalProperties": true
+}
