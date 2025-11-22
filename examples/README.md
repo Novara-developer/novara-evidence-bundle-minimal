@@ -13,3 +13,6 @@ To (re)generate the demo bundle on a local machine:
 
 ```bash
 python3 scripts/generate_demo_bundle.py
+
+Note: The ZIP file is not committed to the repository.  
+Generate it locally with the command above when needed.
