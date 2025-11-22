@@ -36,11 +36,14 @@ novara-evidence-bundle-minimal/
 │  └─ generate_demo_bundle.py               # demo bundle generator
 ├─ verifier/
 │  └─ verify.py                             # Pocket Judge (alpha)
-└─ examples/
-   └─ hinata-2025-11-19.zip                 # sample Evidence Bundle
+├─ examples/
+│  └─ hinata-2025-11-19.zip                 # sample Evidence Bundle
+└─ novara_evb/
+   ├─ __init__.py
+   └─ bundle.py                             # minimal Python SDK
 
 At first, only README.md may exist.
-Other folders (spec/, scripts/, verifier/, examples/) will be added over time.
+Other folders (spec/, scripts/, verifier/, examples/, novara_evb/) will be added over time.
 
 ⸻
 
@@ -65,7 +68,6 @@ Expected output (roughly):
 
 📊 Score: 7/10
 ✅ Bundle is valid for basic audit
-
 
 ⸻
 
@@ -93,11 +95,54 @@ The full specification will live at:
 
 ⸻
 
+Using novara_evb (minimal SDK)
+
+You can also generate Novara Evidence Bundles from your own projects
+using the small helper library in novara_evb/.
+
+Basic example:
+
+from novara_evb import EvidenceBundle
+
+# Create a demo bundle with a random bundle_id
+bundle = EvidenceBundle.new_demo(
+    system_name="Demo Navigation AI",
+    system_version="0.0.1",
+    operator="Hinata Lab",
+)
+
+# Add one AAL event
+bundle.add_event(
+    actor="route-planner",
+    action="calculate_route",
+    input={
+        "origin": "user-current-location",
+        "destination": "Campus Library",
+    },
+    output={"eta_minutes": 12},
+    metadata={"model": "nav-model-demo-001"},
+)
+
+# Optional text attachment
+bundle.add_text_attachment(
+    "attachments/prompt.txt",
+    "User: Please navigate me to the campus library.\n",
+)
+
+# Write a v0.1-compatible bundle
+bundle.write_zip("examples/hinata-2025-11-19.zip")
+
+Any project that imports novara_evb can create
+v0.1-compatible Evidence Bundles (meta.json + aal.ndjson + attachments/)
+with just a few lines of Python.
+
+⸻
+
 Relationship to other Novara repos
 	•	Constitution / protocols (text-only)
-→ novara-core￼
+→ novara-core
 	•	Main app / implementation
-→ Novara￼
+→ Novara
 	•	This repo
 → Minimal implementation (MVP) of the Evidence Bundle format.
 
@@ -110,6 +155,7 @@ In future, this repo is expected to link to examples using:
 
 Status
 	•	v0.1 – experimental but serious minimal implementation.
+
 The log format and ZIP layout are intended to remain as stable as possible.
 
 If breaking changes are required, we will bump the minor version
