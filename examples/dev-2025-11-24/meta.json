@@ -1,0 +1,16 @@
+{
+  "bundle_id": "dev-2025-11-23-hinata-owner-spec-v0-1",
+  "date": "2025-11-23",
+  "owner_id": "hinata",
+  "kind": "development",
+  "summary": "Published Hinata's Novara Owner Spec v0.1 to GitHub and defined core drivers / 4-layer model.",
+  "version": "0.1.0",
+  "tags": [
+    "owner-spec",
+    "driver-profile",
+    "4-layer-model",
+    "novara",
+    "evidence-bundle"
+  ],
+  "schema": "novara-dev-evb-1"
+}
