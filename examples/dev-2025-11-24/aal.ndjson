@@ -1,0 +1,3 @@
+{"ts":"2025-11-24T00:30:00+08:00","actor":"hinata","kind":"git","event":"create_repo","repo":"novara-owner-spec","details":{"visibility":"public","description":"Owner profile and core driver spec for Novara (Hinata v0.1)."}}
+{"ts":"2025-11-24T00:40:00+08:00","actor":"hinata","kind":"edit","event":"add_owner_driver_profile_v0_1","repo":"novara-owner-spec","path":"owner_profile/owner_driver_profile.v0.1.json","details":{"language":"en","core_drivers":["anti_bad_rules","structure_hacking","protect_people","cosmic_game"]}}
+{"ts":"2025-11-24T00:50:00+08:00","actor":"hinata","kind":"edit","event":"add_owner_layers_v0_1","repo":"novara-owner-spec","path":"owner_profile/owner_layers.v0.1.json","details":{"layers":["physical","experience","narrative","meta_choice"]}}
