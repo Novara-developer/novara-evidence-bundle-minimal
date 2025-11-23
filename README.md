@@ -1,4 +1,16 @@
 novara-evidence-bundle-minimal
+### Artifact index
+
+- `spec/`
+  - `bundle.schema.json` … Evidence Bundle 全体の JSON Schema
+  - `aal-entry.schema.json` … 1行分の AAL レコードの Schema
+- `src/novara_evidence/`
+  - `models.py` … AAL と anchors の型定義
+  - `bundle.py` … pack/verify の中核ロジック
+- `examples/`
+  - `hinata-day1.evb.zip` … 人生OS 1日のサンプルバンドル
+- `scripts/`
+  - `pack_example.sh` … サンプルバンドルを再生成するスクリプト
 
 Minimal implementation of Novara Evidence Bundles (v0.1).
 
