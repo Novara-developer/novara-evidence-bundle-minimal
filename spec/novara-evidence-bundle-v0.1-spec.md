@@ -205,29 +205,41 @@ compare it to bundle_hash.
 
 ⸻
 
-5. Validation rules (v0.1)
+## 5. Level-1 Verification (L1)
 
-A bundle is considered valid for basic audit if:
-	1.	The file is a valid ZIP archive
-	2.	meta.json exists and is valid JSON with required fields
-	3.	aal.ndjson exists and:
-	•	is text, and
-	•	each non-empty line is valid JSON with required fields
-	4.	All timestamps in aal.ndjson are parsable ISO 8601 strings
-	5.	Optional directories, if present, do not break ZIP structure
+A verifier that implements **Level-1 (L1)** MUST check at least:
 
-Anchors and signatures are optional in v0.1:
-	•	Missing anchors/ → SHOULD emit a warning, NOT an error
-	•	Missing signatures → SHOULD emit a warning, NOT an error
+1. **Container / structure**
+   - The file is a valid ZIP archive.
+   - `meta.json` exists at the root.
+   - `aal.ndjson` exists at the root.
+   - Optional `attachments/` and `anchors/` directories, if present,
+     MUST be located at the top level of the ZIP.
 
-Example classification used by reference verifiers:
-	•	Score ≥ 7 / 10 → valid for basic audit
-	•	Score 4–6 / 10 → usable with issues
-	•	Score ≤ 3 / 10 → fails verification
+2. **JSON validity**
+   - `meta.json` MUST be valid JSON.
+   - Every non-empty line in `aal.ndjson` MUST be valid JSON.
 
-The exact scoring method is implementation-specific,
-as long as the above validation rules are enforced.
+3. **Schema validation**
+   - `meta.json` MUST satisfy `meta.schema.json`.
+   - Every AAL entry (line) MUST satisfy `aal-entry.schema.json`.
 
+4. **Optional bundle hash**
+   - If `meta.json` contains a field such as `bundle_sha256`
+     (or another explicit bundle-hash field),
+     an L1 verifier **SHOULD** recompute the hash of the entire bundle
+     and compare it with the value in `meta.json`.
+
+If any mandatory check fails, the bundle is **NOT VALID (L1-FAIL)**.
+
+Higher levels (L2, L3, …) may add:
+
+- Rekor / transparency-log verification
+- ZK proof verification
+- TEE attestation checks
+- policy-level checks
+
+but those are **out of scope for v0.1**.
 ⸻
 
 6. Security and privacy (guidance)
